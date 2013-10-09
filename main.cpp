@@ -5,7 +5,6 @@ int main() {
     TTela tela;
     int i, j;
 
-
     tela = criaTela();
 
     TVPontos pontos;
@@ -16,13 +15,11 @@ int main() {
     // Atenção: Coordenada x diz respeito às linhas, e y às colunas
     // Não é como no plano cartesiano!
 
-    criaPonto(&pontos, 0, 0,'l');
-    criaPonto(&pontos, 1, 1,'i');
-    criaPonto(&pontos, 2, 2, 'n');
-    criaPonto(&pontos, 3, 3, 'h');
-    criaPonto(&pontos, 4, 4,'a');
+    criaPonto(&pontos, 0, 0,'x');
+    criaPonto(&pontos, 7, 3,'o');
+    criaPonto(&pontos, 5, 5, '+');
 
-    criaLinha(&linhas, 12, 7, 15, 20, '*');
+    criaLinha(&linhas, 17, 15, 10, 5, '*');
 
     atualizaTela(&tela, pontos, linhas, quadrados, triangulos);
     desenhaTela(tela);

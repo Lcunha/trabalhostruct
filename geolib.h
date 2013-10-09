@@ -71,8 +71,15 @@ TTela criaTela() {
 
 void desenhaTela(TTela tela) {
     int i, j;
+    printf(" ");
+    for (i=0; i<TAM_Y; i++) {
+        printf("%d",i%10);
+    }
+
+    printf("\n");
 
     for (i=0; i<TAM_X; i++) {
+        printf("%d", i);
         for (j=0; j<TAM_Y; j++) {
             printf("%c", tela.grid[i][j]);
         }
@@ -122,45 +129,46 @@ void plotaLinha(TTela *tela, TLinha linha) {
     int x2 = linha.x2;
     int y1 = linha.y1;
     int y2 = linha.y2;
-    int nx, ny;
-    int m;
-    int direcao;
-    int fimx, fimy;
+    int nx, ny, m, fimx, fimy, incx=1;
 
     if (x1 > x2) {
         nx = x2;
-        fimx = x1;
-    } else {
-        nx = x1;
-        fimx = x2;
-    }
-
-    if (y1 < y2) {
-        ny = y1;
-        fimy = y2;
-    } else {
         ny = y2;
-        fimy = y1;
-    }
-
-    if (x1 == x2) {
-        m = y2-y1;
-    } else {
+        fimx = x1;
         m = (y2-y1)/(x2-x1);
+
+    } else if (x1 < x2) {
+        nx = x1;
+        ny = y1;
+        fimx = x2;
+        m = (y2-y1)/(x2-x1);
+
+    } else {
+        nx = x1+1;
+        fimx = x2;
+        incx = 0;
+        m = 1;
+
+        if (y1 > y2) {
+            ny = y2;
+            fimy = y1;
+        } else {
+            ny = y1;
+            fimy = y2;;
+        }
     }
 
-    while (nx <= fimx) {
+    while (nx <= fimx || (ny <= fimy && x1 == x2) ) {
         TPonto ponto;
         ponto.x = nx;
         ponto.y = ny;
         ponto.psimbolo = linha.psimbolo;
         plotaPonto(tela, ponto);
 
-        nx += 1;
-        printf("%d+%d ", ny, m);
+        nx += incx;
         ny += m;
-
     }
+
 }
 
 void atualizaTela(TTela *tela, TVPontos pontos, TVLinhas linhas, TVQuadrados quadrados, TVTriangulos triangulos) {
