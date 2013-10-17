@@ -1,28 +1,83 @@
-#include <stdio.h>
 #include "geolib.h"
 
 int main() {
-    TTela tela;
-    int i, j;
-
-    tela = criaTela();
-
-    TVPontos pontos;
-    TVLinhas linhas;
-    TVQuadrados quadrados;
-    TVTriangulos triangulos;
-
-    // Atenção: Coordenada x diz respeito às linhas, e y às colunas
-    // Não é como no plano cartesiano!
-
-    criaPonto(&pontos, 0, 0,'x');
-    criaPonto(&pontos, 7, 3,'o');
-    criaPonto(&pontos, 5, 5, '+');
-
-    criaLinha(&linhas, 17, 15, 10, 5, '*');
-
-    atualizaTela(&tela, pontos, linhas, quadrados, triangulos);
-    desenhaTela(tela);
-
-    return 0;
+    int i, j, i2, j2;
+	
+	TTela tela = criaTela();
+	
+	TVPontos pontos;
+	TVLinhas linhas;
+	TVQuadrados quadrados;
+	TVTriangulos triangulos;
+	char c;
+	
+	do{
+		system("cls");
+		printf("Coordenadas de Tela: Y:[0..%d] x X:[0..%d]", TAM_X-1, TAM_Y-1);
+		printf("\n");
+		printf("\n");
+		printf("Selecione uma opcao:");
+		printf("\n");
+		printf("\n");
+		printf("\n 1 - Incluir Ponto");
+		printf("\n 2 - Excluir Ponto");
+		printf("\n 3 - Incluir Linha");
+		printf("\n 4 - Excluir Linha");
+		printf("\n 5 - Incluir Triangulo");
+		printf("\n 6 - Excluir Triangulo");
+		printf("\n 7 - Incluir Retangulo");
+		printf("\n 8 - Excluir Retangulo");
+		printf("\n 9 - Exibir Grafico");
+		printf("\n 10 - Sair");
+		printf("\n");
+		int opc;
+		scanf("%d", &opc);
+		switch( opc ){
+			case 1:
+				TPonto ponto;
+				printf("Digite as coordenadas (x, y): ");
+				scanf("%d %d", &ponto.x, &ponto.y);
+				printf("Infome o simbolo a ser usado: ");
+				scanf(" %c", &ponto.psimbolo);
+				criaPonto(&pontos, ponto);
+				atualizaTela(&tela, &pontos, &linhas, quadrados, triangulos);
+				break;
+			case 2:
+				printf("Digite as coordenadas (x, y): ");
+				scanf("%d %d", &i, &j);
+				removePonto(&pontos, i, j);
+				atualizaTela(&tela, &pontos, &linhas, quadrados, triangulos);
+				break;
+			case 3:
+				TLinha linha;
+				printf("Digite as coordenadas de origem (x1, y1): ");
+				scanf("%d %d", &linha.x1, &linha.y1);
+				printf("Digite as coordenadas de destino (x2, y2): ");
+				scanf("%d %d", &linha.x2, &linha.y2);
+				printf("Infome o simbolo a ser usado: ");
+				scanf(" %c", &linha.psimbolo);
+				criaLinha(&linhas, linha);
+				atualizaTela(&tela, &pontos, &linhas, quadrados, triangulos);
+				break;
+			case 4:
+				break;
+			case 5:
+				break;
+			case 6:
+				break;
+			case 7:
+				break;
+			case 8:
+				break;
+			case 9:
+				desenhaTela(tela);
+				getch();
+				break;
+			default:
+				return 0;
+				break;
+		}
+		// Atenção: Coordenada x diz respeito às linhas, e y às colunas
+		// Não é como no plano cartesiano!
+	}while( 1 );
 }
