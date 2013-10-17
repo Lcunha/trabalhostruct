@@ -167,45 +167,44 @@ void plotaPonto(TTela *tela, TPonto ponto) {
 
 void plotaLinha(TTela *tela, TLinha linha) {
     int x1 = linha.x1;
-    int x2 = linha.x2;
     int y1 = linha.y1;
+	int x2 = linha.x2;
     int y2 = linha.y2;
-    int nx, ny, m, fimx, fimy, incx=1;
+    int nx, ny, m, fimx, fimy, incx = 1;
 
-    if (x1 > x2) {
+    if ( x1 > x2 ) {
         nx = x2;
         ny = y2;
         fimx = x1;
         m = (y2-y1)/(x2-x1);
-
-    } else if (x1 < x2) {
-        nx = x1;
-        ny = y1;
-        fimx = x2;
-        m = (y2-y1)/(x2-x1);
-
-    } else {
+    } else if ( x1 < x2 ) {
+		nx = x1;
+		ny = y1;
+		fimx = x2;
+		m = (y2-y1)/(x2-x1);
+	} else {
         nx = x1+1;
         fimx = x2;
         incx = 0;
         m = 1;
 
-        if (y1 > y2) {
-            ny = y2;
-            fimy = y1;
+        if ( y1 > y2 ){
+			ny = y2;
+			fimy = y1;
         } else {
-            ny = y1;
-            fimy = y2;;
+			ny = y1;
+			fimy = y2;;
         }
     }
 
-
-    while (nx <= fimx || (ny <= fimy && x1 == x2) ) {
+    while ( nx <= fimx || (ny <= fimy && x1 == x2) ){
         TPonto ponto;
         ponto.x = nx;
         ponto.y = ny;
         ponto.psimbolo = linha.psimbolo;
         plotaPonto(tela, ponto);
+
+        printf("%d %d - ",ny, fimy);
 
         nx += incx;
         ny += m;
@@ -293,6 +292,7 @@ void plotaQuadrado (TTela *tela, TQuadrado quadrado) {
 void atualizaTela(TTela *tela, TVPontos pontos, TVLinhas linhas, TVQuadrados quadrados, TVTriangulos triangulos) {
     int i;
 
+    criaTela();
     for(i=0; i<pontos.quantidade; i++) {
         TPonto ponto = pontos.elementos[i];
         plotaPonto(tela, pontos.elementos[i]);

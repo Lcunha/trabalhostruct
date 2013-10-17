@@ -65,7 +65,7 @@ int main() {
 			case 4:
 				break;
 			case 5:
-			    criaTriangulo(&triangulos, 0, 3, 10, 3, 10, 20, '*');
+			    criaTriangulo(&triangulos, 10, 3, 5, 9, 10, 20, '*');
 				atualizaTela(&tela, pontos, linhas, quadrados, triangulos);
 				break;
 			case 6:
