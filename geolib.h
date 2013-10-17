@@ -80,7 +80,7 @@ void desenhaTela(TTela tela) {
     printf("\n");
 
     for (i=0; i<TAM_X; i++) {
-        printf("%d", i);
+        printf("%d", i%10);
         for (j=0; j<TAM_Y; j++) {
             printf("%c", tela.grid[i][j]);
         }
@@ -120,6 +120,46 @@ void criaLinha(TVLinhas *linhas, int x1, int y1, int x2, int y2, char psimbolo) 
     linhas->quantidade += 1;
 }
 
+void criaTriangulo(TVTriangulos *triangulos, int x1, int y1, int x2, int y2, int x3, int y3, char psimbolo) {
+     if (triangulos->quantidade >= 5) {
+        printf("Quantidade maxima de triangulos ja foi atingida!");
+        return;
+     }
+
+     TTriangulo triangulo;
+     triangulo.x1 = x1;
+     triangulo.y1 = y1;
+     triangulo.x2 = x2;
+     triangulo.y2 = y2;
+     triangulo.x3 = x3;
+     triangulo.y3 = y3;
+     triangulo.psimbolo = psimbolo;
+
+     triangulos->elementos[triangulos->quantidade] = triangulo;
+     triangulos->quantidade += 1;
+}
+
+void criaQuadrado(TVQuadrados *quadrados, int x1, int y1, int x2, int y2, char psimbolo) {
+    if (quadrados->quantidade >= 5) {
+        printf("Quantidade máxima de linhas já foi atingida!");
+        return;
+    }
+
+    if ((x1 != x2) && (y1 != y2)) {
+    TQuadrado quadrado;
+    quadrado.x1 = x1;
+    quadrado.y1 = y1;
+    quadrado.x2 = x2;
+    quadrado.y2 = y2;
+    quadrado.psimbolo = psimbolo;
+
+    quadrados->elementos[quadrados->quantidade] = quadrado;
+    quadrados->quantidade += 1;
+    }
+
+    else
+        printf("Nao e possivel formar um retangulo com esses pontos.");
+}
 
 void plotaPonto(TTela *tela, TPonto ponto) {
     tela->grid[ponto.x][ponto.y] = ponto.psimbolo;
@@ -159,6 +199,7 @@ void plotaLinha(TTela *tela, TLinha linha) {
         }
     }
 
+
     while (nx <= fimx || (ny <= fimy && x1 == x2) ) {
         TPonto ponto;
         ponto.x = nx;
@@ -169,6 +210,83 @@ void plotaLinha(TTela *tela, TLinha linha) {
         nx += incx;
         ny += m;
     }
+
+}
+
+void plotaTriangulo (TTela *tela, TTriangulo triangulo) {
+     int x1 = triangulo.x1;
+     int x2 = triangulo.x2;
+     int x3 = triangulo.x3;
+     int y1 = triangulo.y1;
+     int y2 = triangulo.y2;
+     int y3 = triangulo.y3;
+     char psimbolo = triangulo.psimbolo;
+
+     TLinha linha1;
+     linha1.x1 = x1;
+     linha1.x2 = x2;
+     linha1.y1 = y1;
+     linha1.y2 = y2;
+     linha1.psimbolo = psimbolo;
+     plotaLinha(tela, linha1);
+
+     TLinha linha2;
+     linha2.x1 = x2;
+     linha2.x2 = x3;
+     linha2.y1 = y2;
+     linha2.y2 = y3;
+     linha2.psimbolo = psimbolo;
+     plotaLinha(tela, linha2);
+
+     TLinha linha3;
+     linha3.x1 = x1;
+     linha3.x2 = x3;
+     linha3.y1 = y1;
+     linha3.y2 = y3;
+     linha3.psimbolo = psimbolo;
+     plotaLinha(tela, linha3);
+}
+
+void plotaQuadrado (TTela *tela, TQuadrado quadrado) {
+     int x1 = quadrado.x1;
+     int x2 = quadrado.x2;
+     int y1 = quadrado.y1;
+     int y2 = quadrado.y2;
+     char psimbolo = quadrado.psimbolo;
+     int nx1, nx2, ny1, ny2, mx, my;
+
+             TLinha linha1;
+             linha1.x1 = x1-1;
+             linha1.x2 = x1-1;
+             linha1.y1 = y1;
+             linha1.y2 = y2;
+             linha1.psimbolo = psimbolo;
+             plotaLinha(tela, linha1);
+
+             TLinha linha2;
+             linha2.x1 = x1;
+             linha2.x2 = x2;
+             linha2.y1 = y1;
+             linha2.y2 = y1;
+             linha2.psimbolo = psimbolo;
+             plotaLinha(tela, linha2);
+
+             TLinha linha3;
+             linha3.x1 = x2-1;
+             linha3.x2 = x2-1;
+             linha3.y1 = y1;
+             linha3.y2 = y2;
+             linha3.psimbolo = psimbolo;
+             plotaLinha(tela, linha3);
+
+             TLinha linha4;
+             linha4.x1 = x1;
+             linha4.x2 = x2;
+             linha4.y1 = y2;
+             linha4.y2 = y2;
+             linha4.psimbolo = psimbolo;
+             plotaLinha(tela, linha4);
+
 
 }
 
@@ -183,5 +301,15 @@ void atualizaTela(TTela *tela, TVPontos pontos, TVLinhas linhas, TVQuadrados qua
     for(i=0; i<linhas.quantidade; i++) {
         TLinha linha = linhas.elementos[i];
         plotaLinha(tela, linhas.elementos[i]);
+    }
+
+    for(i=0; i<quadrados.quantidade; i++) {
+        TQuadrado quadrado = quadrados.elementos[i];
+        plotaQuadrado(tela, quadrados.elementos[i]);
+    }
+
+    for(i=0; i<triangulos.quantidade; i++) {
+        TTriangulo triangulo = triangulos.elementos[i];
+        plotaTriangulo(tela, triangulos.elementos[i]);
     }
 }

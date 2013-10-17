@@ -65,19 +65,26 @@ int main() {
 			case 4:
 				break;
 			case 5:
+			    criaTriangulo(&triangulos, 0, 3, 10, 3, 10, 20, '*');
+				atualizaTela(&tela, pontos, linhas, quadrados, triangulos);
 				break;
 			case 6:
 				break;
 			case 7:
+			    criaQuadrado(&quadrados, 5, 5, 10, 10, 'x');
+				atualizaTela(&tela, pontos, linhas, quadrados, triangulos);
 				break;
 			case 8:
 				break;
+
 			case 9:
 				desenhaTela(tela);
 				printf("\n\n");
 				system("PAUSE");
 				break;
 			default:
+
+
 				return 0;
 				break;
 		}
