@@ -13,7 +13,7 @@ int main() {
 	TVTriangulos triangulos;
 	char c;
 
-	int x1, x2, y1, y2;
+	int x1, x2, y1, y2, posicao;
     char simbol;
 
 	do{
@@ -47,10 +47,10 @@ int main() {
 				atualizaTela(&tela, pontos, linhas, quadrados, triangulos);
 				break;
 			case 2:
-				//printf("Digite as coordenadas (x, y): ");
-				//scanf("%d %d", &i, &j);
-				//removePonto(&pontos, i, j);
-				//atualizaTela(&tela, &pontos, &linhas, quadrados, triangulos);
+				printf("Digite a posicao do elemento no vetor a ser removido: ");
+				scanf("%d", &posicao);
+				removePonto(&pontos, posicao);
+				atualizaTela(&tela, pontos, linhas, quadrados, triangulos);
 				break;
 			case 3:
 				printf("Digite as coordenadas de origem (x1, y1): ");

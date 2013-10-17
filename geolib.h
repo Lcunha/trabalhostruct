@@ -103,6 +103,22 @@ void criaPonto(TVPontos *pontos, int x, int y, char psimbolo) {
     pontos->quantidade += 1;
 }
 
+// A remoção é feita pela posição, e vai ser igual para todas as formas geométricas
+void removePonto(TVPontos *pontos, int posicao) {
+    printf("aqui");
+    if (posicao >= pontos->quantidade) {
+        printf("Nao existe um elemento enssa posicao!");
+        return;
+    }
+
+    if (pontos->quantidade == 1) {
+        pontos->quantidade = 0;
+    } else {
+        pontos->elementos[posicao] = pontos->elementos[pontos->quantidade-1];
+        pontos->quantidade -= 1;
+    }
+}
+
 void criaLinha(TVLinhas *linhas, int x1, int y1, int x2, int y2, char psimbolo) {
     if (linhas->quantidade >= 5) {
         printf("Quantidade máxima de linhas já foi atingida!");
@@ -292,7 +308,7 @@ void plotaQuadrado (TTela *tela, TQuadrado quadrado) {
 void atualizaTela(TTela *tela, TVPontos pontos, TVLinhas linhas, TVQuadrados quadrados, TVTriangulos triangulos) {
     int i;
 
-    criaTela();
+    *tela = criaTela();
     for(i=0; i<pontos.quantidade; i++) {
         TPonto ponto = pontos.elementos[i];
         plotaPonto(tela, pontos.elementos[i]);
