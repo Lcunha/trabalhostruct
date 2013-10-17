@@ -1,16 +1,21 @@
 #include "geolib.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 int main() {
     int i, j, i2, j2;
-	
+
 	TTela tela = criaTela();
-	
+
 	TVPontos pontos;
 	TVLinhas linhas;
 	TVQuadrados quadrados;
 	TVTriangulos triangulos;
 	char c;
-	
+
+	int x1, x2, y1, y2;
+    char simbol;
+
 	do{
 		system("cls");
 		printf("Coordenadas de Tela: Y:[0..%d] x X:[0..%d]", TAM_X-1, TAM_Y-1);
@@ -34,30 +39,28 @@ int main() {
 		scanf("%d", &opc);
 		switch( opc ){
 			case 1:
-				TPonto ponto;
 				printf("Digite as coordenadas (x, y): ");
-				scanf("%d %d", &ponto.x, &ponto.y);
+				scanf("%d %d", &x1, &y1);
 				printf("Infome o simbolo a ser usado: ");
-				scanf(" %c", &ponto.psimbolo);
-				criaPonto(&pontos, ponto);
-				atualizaTela(&tela, &pontos, &linhas, quadrados, triangulos);
+				scanf(" %c", &simbol);
+				criaPonto(&pontos, x1, y1, simbol);
+				atualizaTela(&tela, pontos, linhas, quadrados, triangulos);
 				break;
 			case 2:
-				printf("Digite as coordenadas (x, y): ");
-				scanf("%d %d", &i, &j);
-				removePonto(&pontos, i, j);
-				atualizaTela(&tela, &pontos, &linhas, quadrados, triangulos);
+				//printf("Digite as coordenadas (x, y): ");
+				//scanf("%d %d", &i, &j);
+				//removePonto(&pontos, i, j);
+				//atualizaTela(&tela, &pontos, &linhas, quadrados, triangulos);
 				break;
 			case 3:
-				TLinha linha;
 				printf("Digite as coordenadas de origem (x1, y1): ");
-				scanf("%d %d", &linha.x1, &linha.y1);
+				scanf("%d %d", &x1, &y1);
 				printf("Digite as coordenadas de destino (x2, y2): ");
-				scanf("%d %d", &linha.x2, &linha.y2);
+				scanf("%d %d", &x2, &y2);
 				printf("Infome o simbolo a ser usado: ");
-				scanf(" %c", &linha.psimbolo);
-				criaLinha(&linhas, linha);
-				atualizaTela(&tela, &pontos, &linhas, quadrados, triangulos);
+				scanf(" %c", &simbol);
+				criaLinha(&linhas, x1, y1, x2, y2, simbol);
+				atualizaTela(&tela, pontos, linhas, quadrados, triangulos);
 				break;
 			case 4:
 				break;
@@ -71,7 +74,8 @@ int main() {
 				break;
 			case 9:
 				desenhaTela(tela);
-				getch();
+				printf("\n\n");
+				system("PAUSE");
 				break;
 			default:
 				return 0;

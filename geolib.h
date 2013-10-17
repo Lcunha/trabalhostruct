@@ -1,5 +1,6 @@
 #define TAM_X 20
 #define TAM_Y 40
+#include <stdio.h>
 
 struct TTela {
     char grid[TAM_X][TAM_Y];
